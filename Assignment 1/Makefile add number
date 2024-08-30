@@ -1,0 +1,9 @@
+all: addNum
+addNum: addNum.cpp
+  g++ -o addNum addNum.cpp
+dump: addNum
+  objdump -d addNum.exe > addNum.asm
+clean:
+  del -f addNum addNum.asm
+run: addNum
+  ./addNum
