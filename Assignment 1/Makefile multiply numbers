@@ -1,0 +1,13 @@
+all: multiplication
+
+multiplication: multiplication.cpp
+		g++ -o multiplication multiplication.cpp
+
+dump: multiplication
+		objdump -d multiplication.exe > multiplication.asm
+
+clean:
+		del -f multiplication multiplication.asm
+
+run: multiplication
+		./multiplication
