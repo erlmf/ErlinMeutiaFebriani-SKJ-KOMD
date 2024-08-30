@@ -1,1 +1,88 @@
+//c++ no 1
+#include <iostream>
+using namespace std;
+
+int main(){
+    int i = 4;
+    int j = 25;
+    int k = 0;
+
+    k = i+j;
+
+    cout << k << endl;
+
+    return 0;
+}
+
+//makefile no 1
+all: addNum.exe
+addNum: addNum.cpp
+g++ -o addNum addNum.cpp
+dump: addNum
+objdump -d addNum.exe > addNum.asm
+clean:
+del -f addNum addNum.asm
+run: addNum
+       ./addNum
+
+
+//assembly code
+section .data 
+// define the program’s initialized data
+num1 dw 5 
+// dw = define word (16 bit); declare variable num1 and initialize it with value 5
+      num2 dw 10 
+      // declare variable num2 and initialize it with value 10
+      result dw 0 
+      // declare variable result to store the result of the multiplication and initialize it with value
+           0 
+
+section .text 
+// instructions of the program
+global _start 
+// declare _start label that is the entry point of the program. When the program is run,    execution begins at _start.
+
+_start: 
+// mark the beginning of the program’s execution
+      mov ax, [num1] 
+// move the value stored at the num1 which is 5 into ax register (16 bit) used in arithmetic 
+    operations
+imul ax, [num2] 
+// the imul instruction is used for signed multiplication of integer; multiply the value in the
+  ax register by the value in num2 which is 10. The result of this multiplication is stored
+  back in the ax register.
+      mov [result], ax 
+      // move the value stored in the ax register (which now hold result = 5*10 = 50) into result
+           variable
+
+      ; Exit the program
+      mov eax, 1 
+      // value 1 is system code to exit when use interrupt int 0x80; move to eax register because
+          it used as special register to store system call number in x86 architecture when we use
+         interrupt instruction int 0x80; move value 1 into the eax register
+      xor ebx, ebx 
+      // set the ebx register to 0 by performing an XOR operation between ebx and itself. Setting
+           it to 0 inidicates a successful termination.
+      int 0x80 
+      // interrupt instruction that will execute the requested service, in this case, terminating
+           program with exit code 0
+
+//c++ no 2
+1.	#include<iostream>
+2.	using namespace std;
+3.	
+4.	int main(){
+5.	    // declare the variables
+6.	    int num1 = 5;
+7.	    int num2 = 10;
+8.	    int result = 0;
+9.	
+10.	    // operating process
+11.	    result = num1 * num2;
+12.	    // print the multiplication result
+13.	    cout << "The result = " << result << endl;
+14.	
+15.	    return 0;
+16.	
+17.	}
 
